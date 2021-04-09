@@ -1,0 +1,39 @@
+<div class="container">
+    <h1 class="title">{{title}}</h1>
+    <div class="container-sm">
+        <table class="table table-hover">
+            <thead>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Sexo</th>
+                <th>Documento</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let persona of personas">
+                    <td>{{persona.name}}</td>
+                    <td>{{persona.age}}</td>
+                    <td>{{persona.sex}}</td>
+                    <td>{{persona.doc}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container-sm">
+        <form class="form col-5 pd-4">
+            <label for="new_name" class="form-label">Nombre</label>
+            <input class="form-control" type="text" name="new_name" id="new_name" required/>
+            <label for="age" class="form-label">Edad</label>
+            <input class="form-control" type="number" name="age" id="age" required/>
+
+            <select class="form-control form-select mt-4" required aria-label=".form-select-lg example">
+                <option selected>Selecciona</option>
+                <option value="male">Hombre</option>
+                <option value="female">Mujer</option>
+                <option value="other">Otro</option>
+            </select>
+            <div class="container md-2 mt-3">
+                <button class="btn btn-primary btn-sm" type="submit">Añadir</button>
+            </div>
+        </form>
+    </div>
+</div>
