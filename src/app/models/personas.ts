@@ -3,4 +3,5 @@ export interface Personas {
     name: string;
     age: number;
     sex: string;
+    doc_url: string;
 }

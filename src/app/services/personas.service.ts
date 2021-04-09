@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Personas} from '../models/personas';
+import { Personas } from '../models/personas';
+import { isImportEqualsDeclaration, isVariableDeclarationList } from 'typescript';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,24 +12,38 @@ export class PersonasService {
   constructor( private http: HttpClient) { }
 
   getPersons(){
-    let i=0;
     let records = []
-    while (i<10) {
+    for (let index = 0; index < 10; index++) {
       let petition = this.http.get(`${this.API_URL}`)
-      console.log(petition)
-      console.log(i)
-      i = i+1;
+      petition.subscribe(
+        res => {
+          records.push(res['results'][0])
+        },
+       // err => console.log(err)
+      )
     }
-    return records
+    let local_storage_data = JSON.parse(localStorage.getItem('localData'))
+    if(local_storage_data){
+      local_storage_data.forEach(element => {
+        records.push(element)
+      });
+    }
+    return records;
   }
   saveInStorage(Persona:Personas){
     let current_saved_data = JSON.parse( localStorage.getItem('localData'));
-    let flag = false;
-    current_saved_data.forEach(item => {
-      if (Persona == item){
-        flag == true;
+    if (current_saved_data != null)
+    {
+      if (!current_saved_data.some( item => item.name === Persona.name && Persona.age === item.age && Persona.doc_url === item.doc_url)){
+        current_saved_data.push(Persona);
+        console.log(Persona)
+        console.log(current_saved_data)
       }
-    });
+      else console.log('Registro Repetido')
+    }else{
+      current_saved_data = []
+      current_saved_data.push(Persona);
+    }
     localStorage.setItem('localData',JSON.stringify(current_saved_data));
   }
 }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container card">
     <h1 class="title">{{title}}</h1>
     <div class="container-sm">
         <table class="table table-hover">
@@ -13,27 +13,32 @@
                     <td>{{persona.name}}</td>
                     <td>{{persona.age}}</td>
                     <td>{{persona.sex}}</td>
-                    <td>{{persona.doc}}</td>
+                    <td>{{persona.doc_url}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="container-sm">
-        <form class="form col-5 pd-4">
-            <label for="new_name" class="form-label">Nombre</label>
-            <input class="form-control" type="text" name="new_name" id="new_name" required/>
-            <label for="age" class="form-label">Edad</label>
-            <input class="form-control" type="number" name="age" id="age" required/>
-
-            <select class="form-control form-select mt-4" required aria-label=".form-select-lg example">
-                <option selected>Selecciona</option>
-                <option value="male">Hombre</option>
-                <option value="female">Mujer</option>
-                <option value="other">Otro</option>
-            </select>
-            <div class="container md-2 mt-3">
-                <button class="btn btn-primary btn-sm" type="submit">Añadir</button>
+    <div class="container-sm col-6 col-md-offset-md-2">
+        <div class="card">
+            <div class="card-body">
+                <form class="form pd-4">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input class="form-control" type="text" name="name" [(ngModel)]="p.name" required/>
+                    <label for="age" class="form-label">Edad</label>
+                    <input class="form-control" type="number" name="age" [(ngModel)]="p.age" required/>
+                    <input type="file" name="doc_url" [(ngModel)]="p.doc_url"/>
+                    <select class="form-control form-select mt-4" [(ngModel)]="p.sex" required aria-label=".form-select-lg example" name="sex_">
+                        <option selected>Selecciona</option>
+                        <option value="male">Hombre</option>
+                        <option value="female">Mujer</option>
+                        <option value="other">Otro</option>
+                    </select>
+                    <div class="container md-2 mt-3">
+                        <button class="btn md-2 btn-primary btn-sm" (click)="saveInStorage()" type="submit">Añadir</button>
+                        <button class="btn md-2 ml-5 btn-danger btn-sm" (click)="CleanLocalStorage()" type="submit">Limpiar LocalStorage</button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
